@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "narratless",
+  "version": "${version}",
+  "name": "Narratless",
+  "description": "Narratless gives you more control over the narration system in Minecraft. Change the hotkey or disable it entirely. It's all your choice.",
+  "authors": [
+    "DevPieter"
+  ],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/narratless/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "nl.devpieter.narratless.Narratless"
+    ]
+  },
+  "mixins": [
+    "narratless.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": ">=${minecraft_version} <=${max_minecraft_version}"
+  }
+}
