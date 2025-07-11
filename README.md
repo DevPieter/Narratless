@@ -1,3 +1,5 @@
+[![Narratless Logo](https://raw.githubusercontent.com/DevPieter/Narratless/master/docs/images/narratless-icon.svg)](https://modrinth.com/mod/narratless)
+
 # Narratless
 
 [![Modrinth](https://img.shields.io/modrinth/dt/Zkk0brtY?color=blue&label=Downloads&logo=modrinth)](https://modrinth.com/mod/narratless)
