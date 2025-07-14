@@ -4,17 +4,11 @@ plugins {
     id 'maven-publish'
 }
 
-version = project.mod_version
-group = project.maven_group
+def targetJavaVersion = 21
 
-base {
-    version = project.mod_version + "+${project.minecraft_version}-${project.max_minecraft_version}"
-    group = project.maven_group
-    archivesName = project.archives_base_name
-}
-
-//repositories {
-//}
+group = maven_group
+archivesBaseName = archives_base_name
+version = "${mod_version}+${minecraft_version}-${max_minecraft_version}"
 
 dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
@@ -44,21 +38,13 @@ processResources {
     }
 }
 
-def targetJavaVersion = 21
 tasks.withType(JavaCompile).configureEach {
     it.options.encoding = "UTF-8"
-    if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
-        it.options.release.set(targetJavaVersion)
-    }
+    it.options.release.set(targetJavaVersion)
 }
 
 java {
-    def javaVersion = JavaVersion.toVersion(targetJavaVersion)
-    if (JavaVersion.current() < javaVersion) {
-        toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
-    }
-
-    withSourcesJar()
+    toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
 }
 
 jar {
@@ -69,12 +55,10 @@ jar {
 
 publishing {
     publications {
-        create("mavenJava", MavenPublication) {
-            artifactId = project.archives_base_name
+        mavenJava(MavenPublication) {
             from components.java
         }
     }
-
     repositories {
     }
 }
