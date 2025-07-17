@@ -3,6 +3,7 @@ package nl.devpieter.narratless.mixins;
 import net.minecraft.client.option.GameOptions;
 import net.minecraft.client.option.SimpleOption;
 import nl.devpieter.narratless.Narratless;
+import nl.devpieter.narratless.statics.Options;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
@@ -21,17 +22,7 @@ public class GameOptionsMixin {
 
     @Inject(at = @At("RETURN"), method = "<init>")
     private void onInit(CallbackInfo ci) {
-        this.narratorHotkey = Narratless.getInstance().getNarratorDecoyOption();
+        this.narratorHotkey = Options.NARRATOR_DECOY_OPTION;
     }
-
-//    @Inject(at = @At("TAIL"), method = "accept")
-//    private void onAccept(/*Visitor visitor*/ CallbackInfo ci) {
-//        // visitor.accept("myOption", this.myOption);
-//    }
-
-//    @Inject(method = "accept", at = @At("TAIL"))
-//    private void onAccept(Object visitor, CallbackInfo ci) {
-//        OptionVisitorBridge bridge = (OptionVisitorBridge) visitor;
-//    }
 }
 
