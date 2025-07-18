@@ -26,7 +26,7 @@ public class Settings {
     );
 
     public static void load() {
-        if (!doesFileExist(SETTINGS_FILE)) {
+        if (!FileUtils.doesFileExist(SETTINGS_FILE)) {
             Narratless.getInstance().getLogger().info("Settings file does not exist, skipping load.");
             return;
         }
@@ -48,10 +48,5 @@ public class Settings {
 
         SettingManager settingManager = SettingManager.getInstance();
         settingManager.queueSave(SETTINGS_FILE, setting);
-    }
-
-    @Deprecated // TODO - Use Utilize's FileUtils instead
-    private static boolean doesFileExist(@NotNull File file) {
-        return file.exists() && file.isFile();
     }
 }
