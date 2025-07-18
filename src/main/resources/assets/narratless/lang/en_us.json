@@ -1,9 +1,9 @@
 {
   "narratless.key.narrator.disable": "Disable Narrator",
   "narratless.key.narrator.cycle": "Cycle Narrator",
-  "narratless.options.narrator_hotkey": "Narrator Hotkey",
-  "narratless.options.narrator_hotkey.tooltip": "Allows the Narrator to be toggled on and off using a hotkey.",
-  "narratless.options.narrator_hotkey.requires_modifier": "Narrator, Requires Modifier",
-  "narratless.options.narrator_hotkey.requires_modifier.tooltip": "Requires the Control key to be held down to cycle the Narrator.",
-  "narratless.options.narrator_hotkey.requires_modifier.tooltip.mac": "Requires the Command key to be held down to cycle the Narrator."
+  "narratless.options.narrator_key.enabled": "Narrator Hotkey",
+  "narratless.options.narrator_key.enabled.tooltip": "Allows the Narrator to be toggled on and off using a hotkey.",
+  "narratless.options.narrator_key.requires_modifier": "Narrator, Requires Modifier",
+  "narratless.options.narrator_key.requires_modifier.tooltip": "Requires the Control key to be held down to cycle the Narrator.",
+  "narratless.options.narrator_key.requires_modifier.tooltip.mac": "Requires the Command key to be held down to cycle the Narrator."
 }
