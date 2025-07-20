@@ -20,12 +20,12 @@ You can download Narratless on Modrinth: [Download Narratless](https://modrinth.
 
 **Narratless** gives you more control over the **narration system** in Minecraft. **Change the hotkey** or **disable it entirely**. It's all your choice.
 
-<img src="https://github.com/DevPieter/Narratless/blob/master/docs/images/1.png?raw=true" width="800" height="600"></picture>
+<img src="https://raw.githubusercontent.com/DevPieter/Narratless/master/docs/images/1.png?raw=true" width="800" height="600"></picture>
 
 #### Keybindings can be changed in the `Controls` menu:
 
-<img src="https://github.com/DevPieter/Narratless/blob/master/docs/images/3.png?raw=true" width="800" height="600"></picture>
+<img src="https://raw.githubusercontent.com/DevPieter/Narratless/master/docs/images/3.png?raw=true" width="800" height="600"></picture>
 
 #### Behavior can be changed in the `Accessibility Settings` menu:
 
-<img src="https://github.com/DevPieter/Narratless/blob/master/docs/images/2.png?raw=true" width="800" height="778"></picture>
+<img src="https://raw.githubusercontent.com/DevPieter/Narratless/master/docs/images/2.png?raw=true" width="800" height="778"></picture>
