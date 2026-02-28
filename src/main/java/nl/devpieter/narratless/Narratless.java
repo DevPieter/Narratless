@@ -11,6 +11,7 @@ import nl.devpieter.narratless.statics.KeyBindings;
 import nl.devpieter.narratless.statics.Options;
 import nl.devpieter.narratless.statics.Settings;
 import org.jetbrains.annotations.NotNull;
+import org.lwjgl.glfw.GLFW;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,7 +20,7 @@ public class Narratless implements ClientModInitializer {
     private static Narratless INSTANCE;
 
     private final Logger logger = LoggerFactory.getLogger("Narratless");
-
+    private final MinecraftClient client = MinecraftClient.getInstance();
 
     @Override
     public void onInitializeClient() {
@@ -51,7 +52,7 @@ public class Narratless implements ClientModInitializer {
     }
 
     private void tryDisableNarrator(MinecraftClient client) {
-        if (Options.NARRATOR_REQUIRES_MODIFIER_OPTION.getValue() && !Screen.hasControlDown()) return;
+        if (Options.NARRATOR_REQUIRES_MODIFIER_OPTION.getValue() && !isControlPressed()) return;
         SimpleOption<NarratorMode> narratorOption = client.options.getNarrator();
 
         narratorOption.setValue(NarratorMode.OFF);
@@ -62,7 +63,7 @@ public class Narratless implements ClientModInitializer {
 
     private void tryCycleNarrator(MinecraftClient client) {
         if (Options.NARRATOR_KEY_ENABLED_OPTION.getValue() == false) return;
-        if (Options.NARRATOR_REQUIRES_MODIFIER_OPTION.getValue() && !Screen.hasControlDown()) return;
+        if (Options.NARRATOR_REQUIRES_MODIFIER_OPTION.getValue() && !isControlPressed()) return;
 
         SimpleOption<NarratorMode> narratorOption = client.options.getNarrator();
         narratorOption.setValue(NarratorMode.byId(narratorOption.getValue().getId() + 1));
@@ -77,5 +78,10 @@ public class Narratless implements ClientModInitializer {
 
         Screen screen = MinecraftClient.getInstance().currentScreen;
         if (screen != null) screen.refreshNarrator(isOff);
+    }
+
+    private boolean isControlPressed() {
+        long handle = client.getWindow().getHandle();
+        return GLFW.glfwGetKey(handle, GLFW.GLFW_KEY_LEFT_CONTROL) == GLFW.GLFW_PRESS || GLFW.glfwGetKey(handle, GLFW.GLFW_KEY_RIGHT_CONTROL) == GLFW.GLFW_PRESS;
     }
 }

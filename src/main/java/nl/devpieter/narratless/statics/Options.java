@@ -1,6 +1,6 @@
 package nl.devpieter.narratless.statics;
 
-import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.input.SystemKeycodes;
 import net.minecraft.client.option.SimpleOption;
 import net.minecraft.text.Text;
 
@@ -18,7 +18,7 @@ public class Options {
 
     public static final SimpleOption<Boolean> NARRATOR_REQUIRES_MODIFIER_OPTION = SimpleOption.ofBoolean(
             "narratless.options.narrator_key.requires_modifier",
-            SimpleOption.constantTooltip(MinecraftClient.IS_SYSTEM_MAC ?
+            SimpleOption.constantTooltip(SystemKeycodes.IS_MAC_OS ?
                     Text.translatable("narratless.options.narrator_key.requires_modifier.tooltip.mac") :
                     Text.translatable("narratless.options.narrator_key.requires_modifier.tooltip")),
             true,
