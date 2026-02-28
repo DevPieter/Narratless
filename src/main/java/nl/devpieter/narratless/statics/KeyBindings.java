@@ -11,14 +11,14 @@ public class KeyBindings {
             "narratless.key.narrator.disable",
             InputUtil.Type.KEYSYM,
             GLFW.GLFW_KEY_N,
-            KeyBinding.MISC_CATEGORY
+            KeyBinding.Category.MISC
     );
 
     public static final KeyBinding CYCLE_NARRATOR_KEY = new KeyBinding(
             "narratless.key.narrator.cycle",
             InputUtil.Type.KEYSYM,
             GLFW.GLFW_KEY_B,
-            KeyBinding.MISC_CATEGORY
+            KeyBinding.Category.MISC
     );
 
     public static void init() {

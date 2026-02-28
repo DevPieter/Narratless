@@ -7,8 +7,11 @@ plugins {
 def targetJavaVersion = 21
 
 group = maven_group
-archivesBaseName = archives_base_name
 version = "${mod_version}+${minecraft_version}-${max_minecraft_version}"
+
+base {
+    archivesName = archives_base_name
+}
 
 repositories {
     maven {
@@ -24,7 +27,7 @@ dependencies {
 
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-    modImplementation "nl.devpieter:utilize:1.0.11+1.21-1.21.1"
+    modImplementation "nl.devpieter:utilize:1.1.2+1.21.9-1.21.11"
 }
 
 preprocess {
@@ -58,7 +61,7 @@ java {
 
 jar {
     from("LICENSE") {
-        rename { "${it}_${project.archivesBaseName}" }
+        rename { "${it}_${base.archivesName.get()}" }
     }
 }
 
