@@ -16,16 +16,19 @@ You can download Narratless on Modrinth: [Download Narratless](https://modrinth.
 ![Minecraft](https://img.shields.io/badge/Minecraft-1.21.x-1976d2)
 ![Environment](https://img.shields.io/badge/Environment-client-1976d2)
 
+![Modrinth Version](https://img.shields.io/modrinth/v/Zkk0brtY?color=blue&label=Version&logo=modrinth)
+![Modrinth Game Versions](https://img.shields.io/modrinth/game-versions/Zkk0brtY?color=blue&label=Game%20Versions&logo=modrinth)
+
 ## Description
 
 **Narratless** gives you more control over the **narration system** in Minecraft. **Change the hotkey** or **disable it entirely**. It's all your choice.
 
-<img src="https://github.com/DevPieter/Narratless/blob/master/docs/images/1.png?raw=true" width="800" height="600"></picture>
+<img src="https://raw.githubusercontent.com/DevPieter/Narratless/master/docs/images/1.png?raw=true" width="800" height="600"></picture>
 
 #### Keybindings can be changed in the `Controls` menu:
 
-<img src="https://github.com/DevPieter/Narratless/blob/master/docs/images/3.png?raw=true" width="800" height="600"></picture>
+<img src="https://raw.githubusercontent.com/DevPieter/Narratless/master/docs/images/3.png?raw=true" width="800" height="600"></picture>
 
 #### Behavior can be changed in the `Accessibility Settings` menu:
 
-<img src="https://github.com/DevPieter/Narratless/blob/master/docs/images/2.png?raw=true" width="800" height="778"></picture>
+<img src="https://raw.githubusercontent.com/DevPieter/Narratless/master/docs/images/2.png?raw=true" width="800" height="778"></picture>
