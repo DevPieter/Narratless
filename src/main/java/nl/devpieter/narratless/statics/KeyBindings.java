@@ -1,28 +1,28 @@
 package nl.devpieter.narratless.statics;
 
-import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
-import net.minecraft.client.option.KeyBinding;
-import net.minecraft.client.util.InputUtil;
+import com.mojang.blaze3d.platform.InputConstants;
+import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
+import net.minecraft.client.KeyMapping;
 import org.lwjgl.glfw.GLFW;
 
 public class KeyBindings {
 
-    public static final KeyBinding DISABLE_NARRATOR_KEY = new KeyBinding(
+    public static final KeyMapping DISABLE_NARRATOR_KEY = new KeyMapping(
             "narratless.key.narrator.disable",
-            InputUtil.Type.KEYSYM,
+            InputConstants.Type.KEYSYM,
             GLFW.GLFW_KEY_N,
-            KeyBinding.Category.MISC
+            KeyMapping.Category.MISC
     );
 
-    public static final KeyBinding CYCLE_NARRATOR_KEY = new KeyBinding(
+    public static final KeyMapping CYCLE_NARRATOR_KEY = new KeyMapping(
             "narratless.key.narrator.cycle",
-            InputUtil.Type.KEYSYM,
+            InputConstants.Type.KEYSYM,
             GLFW.GLFW_KEY_B,
-            KeyBinding.Category.MISC
+            KeyMapping.Category.MISC
     );
 
     public static void init() {
-        KeyBindingHelper.registerKeyBinding(DISABLE_NARRATOR_KEY);
-        KeyBindingHelper.registerKeyBinding(CYCLE_NARRATOR_KEY);
+        KeyMappingHelper.registerKeyMapping(DISABLE_NARRATOR_KEY);
+        KeyMappingHelper.registerKeyMapping(CYCLE_NARRATOR_KEY);
     }
 }

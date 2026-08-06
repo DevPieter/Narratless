@@ -1,11 +1,10 @@
 package nl.devpieter.narratless.statics;
 
 import nl.devpieter.narratless.Narratless;
-import nl.devpieter.utilize.setting.SettingManager;
-import nl.devpieter.utilize.setting.interfaces.ISetting;
-import nl.devpieter.utilize.setting.settings.BooleanSetting;
-import nl.devpieter.utilize.utils.common.FileUtils;
-import org.jetbrains.annotations.NotNull;
+import nl.devpieter.utilize.client.setting.SettingManager;
+import nl.devpieter.utilize.client.setting.interfaces.ISetting;
+import nl.devpieter.utilize.client.setting.settings.BooleanSetting;
+import nl.devpieter.utilize.utils.FileUtils;
 
 import java.io.File;
 import java.util.List;
