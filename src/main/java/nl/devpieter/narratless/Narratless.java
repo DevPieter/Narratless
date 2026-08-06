@@ -3,12 +3,12 @@ package nl.devpieter.narratless;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.option.NarratorMode;
-import net.minecraft.client.option.SimpleOption;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.NarratorStatus;
+import net.minecraft.client.OptionInstance;
+import net.minecraft.client.gui.screens.Screen;
 import nl.devpieter.narratless.statics.KeyBindings;
-import nl.devpieter.narratless.statics.Options;
+import nl.devpieter.narratless.statics.NarratlessOptions;
 import nl.devpieter.narratless.statics.Settings;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.glfw.GLFW;
@@ -20,26 +20,25 @@ public class Narratless implements ClientModInitializer {
     private static Narratless INSTANCE;
 
     private final Logger logger = LoggerFactory.getLogger("Narratless");
-    private final MinecraftClient client = MinecraftClient.getInstance();
 
     @Override
     public void onInitializeClient() {
         INSTANCE = this;
         Settings.load();
         KeyBindings.init();
-        Options.init();
+        NarratlessOptions.init();
 
         ClientLifecycleEvents.CLIENT_STARTED.register(client -> {
-            Options.NARRATOR_DECOY_OPTION.setValue(false);
-            MinecraftClient.getInstance().options.write();
+            NarratlessOptions.NARRATOR_DECOY_OPTION.set(false);
+            Minecraft.getInstance().options.save();
 
-            Options.NARRATOR_KEY_ENABLED_OPTION.setValue(Settings.NARRATOR_KEY_ENABLED.getValue());
-            Options.NARRATOR_REQUIRES_MODIFIER_OPTION.setValue(Settings.NARRATOR_REQUIRES_MODIFIER.getValue());
+            NarratlessOptions.NARRATOR_KEY_ENABLED_OPTION.set(Settings.NARRATOR_KEY_ENABLED.getValue());
+            NarratlessOptions.NARRATOR_REQUIRES_MODIFIER_OPTION.set(Settings.NARRATOR_REQUIRES_MODIFIER.getValue());
         });
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            if (KeyBindings.DISABLE_NARRATOR_KEY.wasPressed()) this.tryDisableNarrator(client);
-            if (KeyBindings.CYCLE_NARRATOR_KEY.wasPressed()) this.tryCycleNarrator(client);
+            if (KeyBindings.DISABLE_NARRATOR_KEY.consumeClick()) this.tryDisableNarrator(client);
+            if (KeyBindings.CYCLE_NARRATOR_KEY.consumeClick()) this.tryCycleNarrator(client);
         });
     }
 
@@ -51,37 +50,43 @@ public class Narratless implements ClientModInitializer {
         return this.logger;
     }
 
-    private void tryDisableNarrator(MinecraftClient client) {
-        if (Options.NARRATOR_REQUIRES_MODIFIER_OPTION.getValue() && !isControlPressed()) return;
-        SimpleOption<NarratorMode> narratorOption = client.options.getNarrator();
+    private void tryDisableNarrator(Minecraft client) {
+        if (NarratlessOptions.NARRATOR_REQUIRES_MODIFIER_OPTION.get() && !isControlPressed()) return;
+        OptionInstance<NarratorStatus> narratorOption = client.options.narrator();
 
-        narratorOption.setValue(NarratorMode.OFF);
-        client.options.write();
-
-        this.refreshNarrator(client);
-    }
-
-    private void tryCycleNarrator(MinecraftClient client) {
-        if (Options.NARRATOR_KEY_ENABLED_OPTION.getValue() == false) return;
-        if (Options.NARRATOR_REQUIRES_MODIFIER_OPTION.getValue() && !isControlPressed()) return;
-
-        SimpleOption<NarratorMode> narratorOption = client.options.getNarrator();
-        narratorOption.setValue(NarratorMode.byId(narratorOption.getValue().getId() + 1));
-        client.options.write();
+        narratorOption.set(NarratorStatus.OFF);
+        client.options.save();
 
         this.refreshNarrator(client);
     }
 
-    private void refreshNarrator(@NotNull MinecraftClient client) {
-        SimpleOption<NarratorMode> narratorOption = client.options.getNarrator();
-        boolean isOff = narratorOption.getValue() == NarratorMode.OFF;
+    private void tryCycleNarrator(Minecraft client) {
+        if (!NarratlessOptions.NARRATOR_KEY_ENABLED_OPTION.get()) return;
+        if (NarratlessOptions.NARRATOR_REQUIRES_MODIFIER_OPTION.get() && !isControlPressed()) return;
 
-        Screen screen = MinecraftClient.getInstance().currentScreen;
-        if (screen != null) screen.refreshNarrator(isOff);
+        OptionInstance<NarratorStatus> narratorOption = client.options.narrator();
+        narratorOption.set(NarratorStatus.byId(narratorOption.get().getId() + 1));
+        client.options.save();
+
+        this.refreshNarrator(client);
     }
 
-    private boolean isControlPressed() {
-        long handle = client.getWindow().getHandle();
-        return GLFW.glfwGetKey(handle, GLFW.GLFW_KEY_LEFT_CONTROL) == GLFW.GLFW_PRESS || GLFW.glfwGetKey(handle, GLFW.GLFW_KEY_RIGHT_CONTROL) == GLFW.GLFW_PRESS;
+    private void refreshNarrator(@NotNull Minecraft client) {
+        OptionInstance<NarratorStatus> narratorOption = client.options.narrator();
+        boolean isOff = narratorOption.get() == NarratorStatus.OFF;
+
+        //#if MC>=262
+        Screen screen = client.gui.screen();
+        //#else
+        //$$ Screen screen = client.screen;
+        //#endif
+
+        if (screen != null) screen.updateNarratorStatus(isOff);
+    }
+
+    private static boolean isControlPressed() {
+        long handle = Minecraft.getInstance().getWindow().handle();
+        return GLFW.glfwGetKey(handle, GLFW.GLFW_KEY_LEFT_CONTROL) == GLFW.GLFW_PRESS
+                || GLFW.glfwGetKey(handle, GLFW.GLFW_KEY_RIGHT_CONTROL) == GLFW.GLFW_PRESS;
     }
 }

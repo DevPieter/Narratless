@@ -21,12 +21,15 @@
     ]
   },
   "mixins": [
-    "narratless.mixins.json"
+    {
+      "config": "narratless.mixins.json",
+      "environment": "client"
+    }
   ],
   "depends": {
     "fabricloader": ">=${loader_version}",
-    "fabric": "*",
+    "fabric-api": "*",
     "minecraft": ">=${minecraft_version} <=${max_minecraft_version}",
-    "utilize": ">=1.1.0 <1.2.0"
+    "utilize": ">=2.0.0 <2.1.0"
   }
 }

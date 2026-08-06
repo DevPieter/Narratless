@@ -1,11 +1,10 @@
 package nl.devpieter.narratless.mixins;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
-import net.minecraft.client.gui.screen.option.AccessibilityOptionsScreen;
-import net.minecraft.client.option.GameOptions;
-import net.minecraft.client.option.SimpleOption;
-import nl.devpieter.narratless.Narratless;
-import nl.devpieter.narratless.statics.Options;
+import net.minecraft.client.OptionInstance;
+import net.minecraft.client.Options;
+import net.minecraft.client.gui.screens.options.AccessibilityOptionsScreen;
+import nl.devpieter.narratless.statics.NarratlessOptions;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -15,13 +14,13 @@ import java.util.List;
 @Mixin(AccessibilityOptionsScreen.class)
 public class AccessibilityOptionsScreenMixin {
 
-    @ModifyReturnValue(at = @At("RETURN"), method = "getOptions(Lnet/minecraft/client/option/GameOptions;)[Lnet/minecraft/client/option/SimpleOption;")
-    private static SimpleOption<?>[] replaceOption(SimpleOption<?>[] original, GameOptions gameOptions) {
-        List<SimpleOption<?>> modified = new ArrayList<>(List.of(original));
+    @ModifyReturnValue(at = @At("RETURN"), method = "options")
+    private static OptionInstance<?>[] replaceOption(OptionInstance<?>[] original, Options options) {
+        List<OptionInstance<?>> modified = new ArrayList<>(List.of(original));
 
-        SimpleOption<Boolean> actualOption = Options.NARRATOR_KEY_ENABLED_OPTION;
-        SimpleOption<Boolean> requiresControlOption = Options.NARRATOR_REQUIRES_MODIFIER_OPTION;
-        SimpleOption<Boolean> decoyOption = Options.NARRATOR_DECOY_OPTION;
+        OptionInstance<Boolean> actualOption = NarratlessOptions.NARRATOR_KEY_ENABLED_OPTION;
+        OptionInstance<Boolean> requiresControlOption = NarratlessOptions.NARRATOR_REQUIRES_MODIFIER_OPTION;
+        OptionInstance<Boolean> decoyOption = NarratlessOptions.NARRATOR_DECOY_OPTION;
 
         for (int i = 0; i < modified.size(); i++) {
             if (modified.get(i) != decoyOption) continue;
@@ -30,6 +29,6 @@ public class AccessibilityOptionsScreenMixin {
         }
 
         modified.add(requiresControlOption);
-        return modified.toArray(new SimpleOption[0]);
+        return modified.toArray(new OptionInstance[0]);
     }
 }
